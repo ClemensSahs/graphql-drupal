@@ -46,3 +46,5 @@ else
     echo "    Starting the PHP builtin webserver"
     php -S 127.0.0.1:8888 -t "$TRAVIS_BUILD_DIR" > /dev/null 2> "$TRAVIS_BUILD_DIR/server.log" &
 fi
+
+echo "server rootpath: $TRAVIS_BUILD_DIR";
