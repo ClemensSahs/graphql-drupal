@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-SERVER_ROOT = "$(dirname $TRAVIS_BUILD_DIR)"
-DOCUMENT_ROOT = "$SERVER_ROOT/drupal"
+SERVER_ROOT="$(dirname $TRAVIS_BUILD_DIR)"
+DOCUMENT_ROOT="$SERVER_ROOT/drupal"
 
 touch "$SERVER_ROOT/server.log"
 
