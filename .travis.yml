@@ -42,7 +42,7 @@ before_install:
   # We also don't care if that file exists or not on PHP 7.
   - phpenv config-rm xdebug.ini || true
 
-  # start a web server on port 8080, running in the background
+  # start a web server on port 8888, running in the background
   - bin/start_server.sh
 
 
