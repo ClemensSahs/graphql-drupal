@@ -5,9 +5,7 @@ php:
   - 5.5
   - 5.6
   - 7
-  # HHVM is disabled for now because we have not figured out yet how to start a
-  # web server for the browser tests.
-  #- hhvm
+  - hhvm
 
 env:
   - DRUPAL_CORE=8.2.x
@@ -32,7 +30,7 @@ cache:
   directories:
     - $HOME/.composer
 
-before_script:
+before_install:
   # PHP Deprecated: Automatically populating $HTTP_RAW_POST_DATA is deprecated
   # and will be removed in a future version. To avoid this warning set
   # 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input
@@ -51,6 +49,7 @@ before_script:
   # lookup.
   - cd ..
 
+install:
   # Create database.
   - mysql -e 'create database graphql'
   # Export database variable for kernel tests.
@@ -69,8 +68,9 @@ before_script:
   - composer require youshido/graphql
   # The require already triggered the install.
 
-  # Start a web server on port 8888, run in the background.
-  - php -S localhost:8888 &
+before_script:
+  # start a web server on port 8080, running in the background
+  - bin/start_server.sh
 
   # Export web server URL for browser tests.
   - export SIMPLETEST_BASE_URL=http://localhost:8888
