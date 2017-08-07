@@ -47,7 +47,7 @@ CONF
     sudo nginx -c "$SERVER_ROOT/.nginx.conf"
 else
     echo "    Starting the PHP builtin webserver"
-    php -S 127.0.0.1:8888 -t "$DOCUMENT_ROOT" > /dev/null 2> "$SERVER_ROOT/server.log" &
+    php -S localhost:8888 -t "$DOCUMENT_ROOT" > /dev/null 2> "$SERVER_ROOT/server.log" &
 fi
 
 echo "server rootpath: $DOCUMENT_ROOT";
