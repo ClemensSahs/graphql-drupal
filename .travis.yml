@@ -42,6 +42,10 @@ before_install:
   # We also don't care if that file exists or not on PHP 7.
   - phpenv config-rm xdebug.ini || true
 
+  # start a web server on port 8080, running in the background
+  - bin/start_server.sh
+
+
   # Remember the current graphql test directory for later use in the Drupal
   # installation.
   - TESTDIR=$(pwd)
@@ -69,9 +73,6 @@ install:
   # The require already triggered the install.
 
 before_script:
-  # start a web server on port 8080, running in the background
-  - bin/start_server.sh
-
   # Export web server URL for browser tests.
   - export SIMPLETEST_BASE_URL=http://localhost:8888
 
