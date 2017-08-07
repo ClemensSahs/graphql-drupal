@@ -34,7 +34,7 @@ http {
         location / {
             fastcgi_pass 127.0.0.1:9000;
             fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME \$document_root/index.php;
+            fastcgi_param SCRIPT_FILENAME \$DOCUMENT_ROOT/index.php;
             include /etc/nginx/fastcgi_params;
         }
     }
