@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-touch "$TRAVIS_BUILD_DIR/server.log"
+SERVER_ROOT = "$(dirname $TRAVIS_BUILD_DIR)"
+DOCUMENT_ROOT = "$SERVER_ROOT/drupal"
+
+touch "$SERVER_ROOT/server.log"
 
 if [[ "$TRAVIS_PHP_VERSION" == "hhvm" ]]
 then
@@ -27,7 +30,7 @@ http {
     server {
         server_name localhost;
         listen 8888;
-        root $TRAVIS_BUILD_DIR/drupal;
+        root $DOCUMENT_ROOT;
         location / {
             fastcgi_pass 127.0.0.1:9000;
             fastcgi_index index.php;
@@ -38,13 +41,13 @@ http {
 }
 CONF
     echo "    Starting the HHVM daemon"
-    hhvm --mode server -vServer.Type=fastcgi -vServer.IP='127.0.0.1' -vServer.Port=9000 > "$TRAVIS_BUILD_DIR/server.log" 2>&1 &
+    hhvm --mode server -vServer.Type=fastcgi -vServer.IP='127.0.0.1' -vServer.Port=9000 > "$SERVER_ROOT/server.log" 2>&1 &
     echo "    Starting nginx"
     sudo mkdir -p /var/log/nginx/
-    sudo nginx -c "$TRAVIS_BUILD_DIR/.nginx.conf"
+    sudo nginx -c "$SERVER_ROOT/.nginx.conf"
 else
     echo "    Starting the PHP builtin webserver"
-    php -S 127.0.0.1:8888 -t "$TRAVIS_BUILD_DIR/drupal" > /dev/null 2> "$TRAVIS_BUILD_DIR/server.log" &
+    php -S 127.0.0.1:8888 -t "$DOCUMENT_ROOT" > /dev/null 2> "$SERVER_ROOT/server.log" &
 fi
 
-echo "server rootpath: $TRAVIS_BUILD_DIR/drupal";
+echo "server rootpath: $DOCUMENT_ROOT";
