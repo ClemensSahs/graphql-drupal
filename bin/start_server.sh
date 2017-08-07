@@ -27,7 +27,7 @@ http {
     server {
         server_name localhost;
         listen 8888;
-        root $TRAVIS_BUILD_DIR/testapp;
+        root $TRAVIS_BUILD_DIR;
         location / {
             fastcgi_pass 127.0.0.1:9000;
             fastcgi_index index.php;
@@ -44,5 +44,5 @@ CONF
     sudo nginx -c "$TRAVIS_BUILD_DIR/.nginx.conf"
 else
     echo "    Starting the PHP builtin webserver"
-    php -S 127.0.0.1:8888 -t "$TRAVIS_BUILD_DIR/testapp" > /dev/null 2> "$TRAVIS_BUILD_DIR/server.log" &
+    php -S 127.0.0.1:8888 -t "$TRAVIS_BUILD_DIR" > /dev/null 2> "$TRAVIS_BUILD_DIR/server.log" &
 fi
