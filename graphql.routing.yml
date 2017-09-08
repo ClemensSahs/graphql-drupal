@@ -1,5 +1,9 @@
 graphql.request:
   path: '/graphql'
+  options:
+    _auth:
+      - basic_auth
+      - cookie
   defaults:
     _graphql:
       single: '\Drupal\graphql\Controller\RequestController::handleRequest'
